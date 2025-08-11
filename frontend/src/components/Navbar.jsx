@@ -6,6 +6,7 @@ import { Heart, Search, Handbag ,User,AlignJustify} from "lucide-react";
 
 function Navbar() {
   const [showDiv, setShowDiv] = useState(true);
+
   
 
   useEffect(() => {
@@ -58,7 +59,22 @@ function Navbar() {
 
         <select className='transition-transform duration-300  group-hover:text-black text-white px-4 cursor-pointer hover:underline underline-offset-4 mr-4'><option>SPRING 2025</option></select>
 
-        <select className='transition-transform duration-300  group-hover:text-black text-white px-4 cursor-pointer hover:underline underline-offset-4 mr-4'><option>SHOP</option></select>
+        <select
+          className="transition-transform duration-300 group-hover:text-black text-white px-4 cursor-pointer hover:underline underline-offset-4 mr-4"
+          onChange={(e) => {
+            if (e.target.value) {
+              window.location.href = e.target.value;
+              e.target.selectedIndex = 0; // reset to SHOP so MEN can be clicked again
+            }
+          }}
+        >
+          <option value="">SHOP</option>
+          <option value="/all">ALL</option>
+          <option value="/mens">MEN</option>
+          <option value="/womens">WOMEN</option>
+        </select>
+
+
 
         <select className='transition-transform duration-300  group-hover:text-black text-white px-4 cursor-pointer hover:underline underline-offset-4 mr-4'><option>CORE COLLECTION</option></select>
 
