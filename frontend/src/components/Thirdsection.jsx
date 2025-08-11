@@ -2,7 +2,7 @@
 function Thirdsection(){
     return(
         <>
-            <div className="mt-8 h-250 min-h-200 w-full sm:bg-top bg-[url('assets/home4.webp')] md:bg-[url('assets/home3.webp')] bg-right bg-cover">
+            <div className="mt-8 h-250 min-h-200 w-full sm:bg-top bg-[url('/home4.webp')] md:bg-[url('/home3.webp')] bg-right bg-cover">
                 <div className="h-full w-full flex items-center justify-center md:justify-start pl-10 ">
 
                 <div className="mt-8 h-45 w-100">

@@ -11,7 +11,7 @@ function Hero() {
     <>
     <div className='h-auto w-screen flex flex-col'>
 
-    <div  className="bg-[url('assets/hero2.webp')] md:bg-[url('assets/hero.webp')] h-screen w-screen bg-top sm:bg-cover  md:bg-cover">
+    <div  className="bg-[url('assets/hero2.webp')] md:bg-[url('/hero.webp')] h-screen w-screen bg-top sm:bg-cover  md:bg-cover">
       <div>
         <Navbar/>
       </div>
