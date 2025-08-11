@@ -11,7 +11,7 @@ function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1400) {
+      if (window.innerWidth < 1200) {
         setShowDiv(false); // hide/remove
       } else {
         setShowDiv(true); // show

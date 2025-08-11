@@ -10,7 +10,7 @@ function Navbar() {
   
     useEffect(() => {
       const handleResize = () => {
-        if (window.innerWidth < 1400) {
+        if (window.innerWidth < 1200) {
           setShowDiv(false); // hide/remove
         } else {
           setShowDiv(true); // show
@@ -94,19 +94,19 @@ function Navbar() {
       
       }
       {!showDiv &&
-      <nav className='group h-20 w-screen flex flex-row justify-between items-center transform-color hover:bg-white px-4 border-b text-white'>
+      <nav className='group h-20 w-screen flex flex-row justify-between items-center transform-color  px-4 border-b '>
           <div className='h-full w-20 flex justify-center items-center pb-3'>
-            <AlignJustify className='stroke-white'/>
+            <AlignJustify/>
           </div>
-          <div className="h-full w-50 group-hover:text-black transition-colors duration-300 flex justify-center items-center text-4xl font-bold text-white pb-5">
+          <div className="h-full w-50 text-black transition-colors duration-300 flex justify-center items-center text-4xl font-bold  pb-5">
           RASTAH
           </div>
           <div className='flex flex-row pt-2 space-x-4 pb-6 '>
-            <Heart className='group-hover:text-black h-6 w-6 text-white'/>
+            <Heart className='group-hover:text-black h-6 w-6 '/>
   
-            <Handbag className='group-hover:text-black text-white h-6 w-6'/>
+            <Handbag className='group-hover:text-black  h-6 w-6'/>
   
-            <User className='group-hover:text-black text-white h-6 w-6'/>
+            <User className='group-hover:text-black  h-6 w-6'/>
           </div>
       </nav>
   
