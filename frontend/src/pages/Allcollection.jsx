@@ -98,7 +98,7 @@ function Navbar() {
           <div className='h-full w-20 flex justify-center items-center pb-3'>
             <AlignJustify/>
           </div>
-          <div className="h-full w-50 text-black transition-colors duration-300 flex justify-center items-center text-4xl font-bold  pb-5">
+          <div className="h-full w-50  text-black transition-colors duration-300 flex justify-center items-center text-4xl font-bold  pb-5">
           RASTAH
           </div>
           <div className='flex flex-row pt-2 space-x-4 pb-6 '>

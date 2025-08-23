@@ -1,0 +1,8 @@
+const express = require('express');
+const router = express.Router();
+const inventoryController = require('../controllers/inventory-controller');
+
+router.get('/collection/:productName',inventoryController.getItem);
+router.post('/collection',inventoryController.insertItem);
+
+module.exports = router;
