@@ -30,4 +30,17 @@ const getItem = async(req,res)=>{
     }
 }
 
-module.exports = {insertItem,getItem};
+const deleteItem = async(req,res)=>{
+    try {
+        const productName = req.params.productName;
+        const item = await Inventory.deleteOne({productName});
+        if(item.deletedCount===0){
+            return res.status(300).json({msg : "item not found"});
+        }
+        res.status(200).json({msg:"item deleted successfully"});
+    } catch (error) {
+        res.status(500).json("Error deleting item");
+    }
+}
+
+module.exports = {insertItem,getItem,deleteItem};
