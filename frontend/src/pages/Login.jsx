@@ -27,6 +27,7 @@ function Login() {
             <div className='w-full h-auto flex justify-center'>
          
             <button className='bg-white text-xl w-[150px] py-2 rounded-[10px]'>Sign in</button>
+            <button className='bg-white'><Link to='/signup'>Signup</Link></button>
             </div>
         </div>
     </div>
