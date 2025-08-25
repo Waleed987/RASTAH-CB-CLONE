@@ -24,7 +24,8 @@ UserSchema.methods.generateToken = function(){
     try {
         return jwt.sign({
             userId: this._id.toString(),
-            email: this.email     
+            email: this.email ,
+            isAdmin: this.isAdmin    
         },
         "Testkey",
         {
@@ -33,6 +34,7 @@ UserSchema.methods.generateToken = function(){
     )
     } catch (error) {
         console.log(error);
+        return null;
     }
 }
 
