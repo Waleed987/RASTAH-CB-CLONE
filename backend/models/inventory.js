@@ -13,6 +13,22 @@ const inventorySchema = new mongoose.Schema({
     price:{
         type:Number,
         required:true
+    },
+    gender:{
+        type:String,
+        required:true,
+    },
+    availability:{
+        type:String,
+        required:true,
+    },
+    size:{
+        type:String,
+        required:true,
+    },
+    subcategory:{
+        type:String,
+        required:true
     }
 });
 

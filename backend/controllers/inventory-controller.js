@@ -4,10 +4,10 @@ const Inventory = require('../models/inventory');
 const insertItem = async (req,res)=>{
     try {
 
-        const {imageUrl,productName , price} = req.body;
-        const newItem = await Inventory.create({imageUrl,productName,price});
+        const {productName , price,imageUrl, gender, availability, size, subcategory} = req.body;
+        const newItem = await Inventory.create({productName , price,imageUrl, gender, availability, size, subcategory});
         if(newItem){
-            res.status(200).json({mesasge:"item created",item:newItem});
+            res.status(200).json({message:"item created",item:newItem});
         }
     } catch (error) {
         res.status(500).json({Error : "Error inserting item"});
