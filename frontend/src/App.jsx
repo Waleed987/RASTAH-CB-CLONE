@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Allcollection from './pages/Allcollection'
 import Admin from './pages/Admin'
 import Mens from './pages/Mens'
+import Women from './pages/Women'
 function App() { 
   
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/' element={<Home/>}/>
         <Route path='/mens' element={<Mens/>}/>
+        <Route path='/womens' element={<Women/>}/>
         <Route path='/all' element={<Allcollection/>} />
       </Routes>
     </BrowserRouter>
