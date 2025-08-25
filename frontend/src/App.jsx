@@ -6,7 +6,8 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Allcollection from './pages/Allcollection'
 import Admin from './pages/Admin'
-function App() {
+function App() { 
+
   return (
     <>
        <BrowserRouter>
@@ -14,7 +15,7 @@ function App() {
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/home' element={<Home/>}/>
         <Route path='/all' element={<Allcollection/>} />
       </Routes>
     </BrowserRouter>

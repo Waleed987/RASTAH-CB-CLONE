@@ -43,4 +43,17 @@ const deleteItem = async(req,res)=>{
     }
 }
 
-module.exports = {insertItem,getItem,deleteItem};
+const getAllItems = async(req , res)=>{
+    try {
+        const list = await Inventory.find({});
+        if(!list || list.length === 0){
+           return res.status(404).json({msg:"No items found"});
+        }
+        res.status(200).json({inventoryItems: list});
+    } catch (error) {
+        console.log("Error fetching items:", error);
+        res.status(500).json({Error: "Error fetching items"});
+    }
+}
+
+module.exports = {insertItem,getItem,deleteItem,getAllItems};

@@ -5,9 +5,7 @@ import Card from "../components/Card";
 
 function Navbar() {
     const [showDiv, setShowDiv] = useState(true);
-  
     
-  
     useEffect(() => {
       const handleResize = () => {
         if (window.innerWidth < 1200) {
