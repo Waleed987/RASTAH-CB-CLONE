@@ -9,21 +9,7 @@ import Sixsection from '../components/Sixsection';
 
 function Home() {
   const [navTop, setnavTop] = useState(false);
-  const [inventoryItems, setInventoryItems] = useState([]);
-
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/inventory/collection");
-        setInventoryItems(res.data.inventoryItems);
-        console.log("Inventory items:", res.data.inventoryItems);
-      } catch (error) {
-        console.error("Error fetching inventory:", error);
-      }
-    }
-
-    fetchItems();
-  }, []);
+  
 
   return (
     <>

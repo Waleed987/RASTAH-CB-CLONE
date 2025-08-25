@@ -118,11 +118,9 @@ function Navbar() {
   
 
 
-function Allcollection() {
+function Mens() {
   
   const [inventoryItems, setInventoryItems] = useState([]);
-  const [maleChecked, setMaleChecked] = useState(false);
-  const [femaleChecked, setFemaleChecked] = useState(false);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -137,46 +135,22 @@ function Allcollection() {
 
     fetchItems();
   }, []);
-
-  // Filter items based on selected gender
-  const filteredItems = inventoryItems.filter(item => {
-    if (maleChecked && !femaleChecked) {
-      return item.gender === 'male' || item.gender === 'Male' || item.gender === 'MALE';
-    } else if (femaleChecked && !maleChecked) {
-      return item.gender === 'female' || item.gender === 'Female' || item.gender === 'FEMALE';
-    } else if (maleChecked && femaleChecked) {
-      return true; // Show all items if both are checked
-    } else {
-      return true; // Show all items if none are checked
-    }
-  });
-
   return (
     <>
       <div className="h-auto w-screen flex flex-col items-center">
         <Navbar/>
         <div className="h-35 w-full flex flex-col border-b sticky top-0 bg-white ">
             <div className="h-20 flex justify-center items-center text-3xl">
-                <h1 className="font-sans">ALL</h1>
+                <h1 className="font-sans">MENS</h1>
             </div>
             <div className="flex flex-1 items-center  pl-20 space-x-10 mb-2">
                 <label className="text-black text-[1rem] flex justify-center items-center">
-                    <input 
-                      type="checkbox"  
-                      className="h-5 w-5 mr-2"
-                      checked={maleChecked}
-                      onChange={(e) => setMaleChecked(e.target.checked)}
-                    />
+                    <input type="checkbox"  className="h-5 w-5 mr-2"></input>
                      MALE
                 </label>
 
                 <label className="text-black text-[1rem] flex justify-center items-center">
-                    <input 
-                      type="checkbox"  
-                      className="h-5 w-5 mr-2"
-                      checked={femaleChecked}
-                      onChange={(e) => setFemaleChecked(e.target.checked)}
-                    />
+                    <input type="checkbox"  className="h-5 w-5 mr-2"></input>
                      FEMALE
                 </label>
 
@@ -198,15 +172,11 @@ function Allcollection() {
 
 
         <div className="flex justify-center h-auto w-screen mt-2">
-        <div className="h-full w-[96%]">
-          <div className="text-center mb-4 text-gray-600">
-            Showing {filteredItems.length} of {inventoryItems.length} items
-          </div>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
-            {filteredItems.map((item,index)=>{
-              return <Card key={index} item={item}/>
+        <div className="h-full w-[96%] grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
+            {inventoryItems.filter(item=>item.gender=='male').map((item,index)=>{
+                return <Card key={index} item={item}/>
             })}
-          </div>
+           
         </div>
 
         </div>
@@ -217,4 +187,4 @@ function Allcollection() {
   );
 }
 
-export default Allcollection;
+export default Mens;

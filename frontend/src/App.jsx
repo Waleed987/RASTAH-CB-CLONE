@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import './App.css'
@@ -6,8 +6,9 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Allcollection from './pages/Allcollection'
 import Admin from './pages/Admin'
+import Mens from './pages/Mens'
 function App() { 
-
+  
   return (
     <>
        <BrowserRouter>
@@ -15,7 +16,8 @@ function App() {
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
-        <Route path='/home' element={<Home/>}/>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/mens' element={<Mens/>}/>
         <Route path='/all' element={<Allcollection/>} />
       </Routes>
     </BrowserRouter>
