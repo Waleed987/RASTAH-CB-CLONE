@@ -141,7 +141,7 @@ function Women() {
         <Navbar/>
         <div className="h-35 w-full flex flex-col border-b sticky top-0 bg-white ">
             <div className="h-20 flex justify-center items-center text-3xl">
-                <h1 className="font-sans">MENS</h1>
+                <h1 className="font-sans">WOMEN</h1>
             </div>
             <div className="flex flex-1 items-center  pl-20 space-x-10 mb-2">
                 <label className="text-black text-[1rem] flex justify-center items-center">

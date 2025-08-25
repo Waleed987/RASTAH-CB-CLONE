@@ -1,8 +1,18 @@
+import { useNavigate } from "react-router-dom";
 
 function Card({item}){
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        navigate(`/product/${item._id}`);
+    };
+
     return(
         <>
-            <div className="flex flex-col justify-center items-center pt-2 px-2 h-110 w-60 transition-all duration-75 hover:border m-4">
+            <div 
+                className="flex flex-col justify-center items-center pt-2 px-2 h-110 w-60 transition-all duration-75 hover:border m-4 cursor-pointer hover:shadow-lg"
+                onClick={handleCardClick}
+            >
                 <div className="h-85 w-[98%]">
                     <img src={item?.imageUrl || "/hero.webp"} alt={item?.name || "Product"} className="h-full w-full object-cover" />
                 </div>
