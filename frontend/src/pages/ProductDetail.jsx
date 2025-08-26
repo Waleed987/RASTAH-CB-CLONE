@@ -218,8 +218,8 @@ function ProductDetail() {
                     </div>
                     <div>
                       <span className="font-medium text-gray-600">Availability:</span>
-                      <span className={`ml-2 ${product.availability === 'IN-STOCK' ? 'text-green-600' : 'text-red-600'}`}>
-                        {product.availability}
+                      <span className={`ml-2 ${product.availability && product.availability.toLowerCase() === 'in-stock' ? 'text-green-600' : 'text-red-600'}`}>
+                        {product.availability || 'Out of Stock'}
                       </span>
                     </div>
                     <div>
@@ -273,10 +273,10 @@ function ProductDetail() {
                 <div className="border-t pt-6">
                   <button
                     onClick={handleAddToCart}
-                    disabled={!selectedSize || product.availability !== 'IN-STOCK'}
+                    disabled={!selectedSize || !product.availability || product.availability.toLowerCase() !== 'in-stock'}
                     className="w-full bg-black text-white py-4 px-6 rounded-md font-semibold text-lg hover:bg-gray-800 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
                   >
-                    {product.availability === 'IN-STOCK' ? 'Add to Cart' : 'Out of Stock'}
+                    {product.availability && product.availability.toLowerCase() === 'in-stock' ? 'Add to Cart' : 'Out of Stock'}
                   </button>
                 </div>
 
