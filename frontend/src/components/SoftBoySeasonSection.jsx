@@ -1,114 +1,30 @@
+
+
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Card from './Card';
+import axios from 'axios';
 
 function SoftboySeasonSection() {
   const [activeTab, setActiveTab] = useState('men');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
+  const [products,setproducts] = useState([]);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/inventory/collection");
+        setproducts(res.data.inventoryItems);
+        console.log("Inventory items:", res.data.inventoryItems);
+      } catch (error) {
+        console.error("Error fetching inventory:", error);
+      }
+    }
+
+    fetchItems();
+  }, []);
   
-  const products = [
-    {
-      id: 1,
-      name: "BAZM-E-BAHAR JACKET",
-      price: "Rs.134,600.00",
-      image: "assets/hero.webp",
-      isNew: true,
-      colors: {
-        primary: "bg-green-700",
-        accent: "bg-green-100"
-      }
-    },
-    {
-      id: 2,
-      name: "PATANG-E-KHAYAAL JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-yellow-400",
-        accent: "bg-pink-200"
-      }
-    },
-    {
-      id: 3,
-      name: "NAQSH-E-KHAYAL KHADDAR JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-amber-700",
-        accent: "bg-red-600"
-      }
-    },
-    {
-      id: 4,
-      name: "BEIGE EMBROIDERED JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-stone-200",
-        accent: "bg-orange-200"
-      }
-    },
-    {
-      id: 5,
-      name: "HISAAB JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-red-600",
-        accent: "bg-orange-300"
-      },
-    }
-    ,
-    {
-      id: 4,
-      name: "BEIGE EMBROIDERED JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-stone-200",
-        accent: "bg-orange-200"
-      }
-    }
-    ,
-    {
-      id: 4,
-      name: "BEIGE EMBROIDERED JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-stone-200",
-        accent: "bg-orange-200"
-      }
-    },
-    {
-      id: 4,
-      name: "BEIGE EMBROIDERED JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-stone-200",
-        accent: "bg-orange-200"
-      }
-    },
-    {
-      id: 4,
-      name: "BEIGE EMBROIDERED JACKET",
-      price: "Rs.134,600.00",
-      image: "/api/placeholder/300/400",
-      isNew: true,
-      colors: {
-        primary: "bg-stone-200",
-        accent: "bg-orange-200"
-      }
-    }
-  ];
 
   // Responsive items per view
   useEffect(() => {
@@ -212,55 +128,16 @@ function SoftboySeasonSection() {
             className="flex transition-transform duration-500 ease-in-out gap-4 md:gap-6"
             style={{ 
               transform: `translateX(-${currentSlide * (100 / itemsPerView)}%)`,
-              width: `${(products.length / itemsPerView) * 100}%`
+              width: `${(5 / itemsPerView) * 100}%`
             }}
           >
-            {products.map((product) => (
+            {products.slice(0, 5).map((item) => (
               <div 
-                key={product.id} 
-                className="group cursor-pointer"
-                style={{ width: `${100 / products.length}%` }}
+                key={item._id} 
+                className="group cursor-pointer flex-shrink-0"
+                style={{ width: `${100 / 5}%` }}
               >
-                <div className="relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 h-full">
-                  {/* New Badge */}
-                  {product.isNew && (
-                    <div className="absolute top-2 md:top-4 left-2 md:left-4 z-10">
-                      <span className="bg-green-500 text-white px-2 md:px-3 py-1 text-xs md:text-sm font-medium rounded">
-                        NEW
-                      </span>
-                    </div>
-                  )}
-                  
-                  {/* Product Image Area */}
-                  <div className="aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-                    {/* Simulated jacket with dynamic colors */}
-                    <div className="absolute inset-0 flex items-center justify-center p-4">
-                      <div className="w-full h-full max-w-32 md:max-w-48 relative">
-                        {/* Main jacket body */}
-                        <div className={`w-full h-full rounded-lg ${product.colors.primary} opacity-80 relative`}>
-                          {/* Decorative patterns */}
-                          <div className={`absolute top-4 md:top-8 left-2 md:left-4 right-2 md:right-4 h-8 md:h-16 ${product.colors.accent} opacity-60 rounded`}></div>
-                          <div className={`absolute bottom-4 md:bottom-8 left-2 md:left-4 right-2 md:right-4 h-4 md:h-8 ${product.colors.accent} opacity-40 rounded`}></div>
-                        </div>
-                        {/* Collar */}
-                        <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 w-8 md:w-16 h-4 md:h-8 ${product.colors.primary} rounded-b-lg`}></div>
-                      </div>
-                    </div>
-                    
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                  </div>
-                  
-                  {/* Product Info */}
-                  <div className="p-3 md:p-6 bg-white">
-                    <h3 className="text-xs md:text-sm font-medium text-gray-900 mb-1 md:mb-2 tracking-wide leading-tight line-clamp-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-sm md:text-lg font-light text-gray-700">
-                      {product.price}
-                    </p>
-                  </div>
-                </div>
+                <Card item={item} />
               </div>
             ))}
           </div>
