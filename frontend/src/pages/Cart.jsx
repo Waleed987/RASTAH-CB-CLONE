@@ -1,8 +1,213 @@
-function Cart(){
-    return(
-        <>
-        </>
-    )
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import CartItem from "../components/Cartitem";
+import { ArrowLeft, ShoppingBag, CreditCard, Truck } from "lucide-react";
+
+function Cart() {
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Mock cart data for demonstration (replace with actual API call)
+  useEffect(() => {
+    // Simulate loading cart data
+    setTimeout(() => {
+      setCartItems([
+        {
+          productId: "1",
+          productName: "BAZM-E-BAHAR JACKET",
+          price: 134600,
+          quantity: 2,
+          imageUrl: "/hero.webp",
+          gender: "men",
+          subcategory: "jacket",
+          size: "M"
+        },
+        {
+          productId: "2", 
+          productName: "PATANG-E-KHAYAAL JACKET",
+          price: 134600,
+          quantity: 1,
+          imageUrl: "/hero.webp",
+          gender: "men",
+          subcategory: "jacket",
+          size: "L"
+        }
+      ]);
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  const handleUpdateQuantity = (productId, newQuantity) => {
+    setCartItems(prev => 
+      prev.map(item => 
+        item.productId === productId 
+          ? { ...item, quantity: newQuantity }
+          : item
+      )
+    );
+  };
+
+  const handleRemoveItem = (productId) => {
+    setCartItems(prev => prev.filter(item => item.productId !== productId));
+  };
+
+  const calculateSubtotal = () => {
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const calculateShipping = () => {
+    return calculateSubtotal() > 5000 ? 0 : 500;
+  };
+
+  const calculateTotal = () => {
+    return calculateSubtotal() + calculateShipping();
+  };
+
+  const handleCheckout = () => {
+    // Implement checkout logic here
+    alert("Proceeding to checkout...");
+  };
+
+  const handleContinueShopping = () => {
+    navigate('/all');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your cart...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => navigate(-1)}
+              className="p-2 text-gray-600 hover:text-black transition-colors duration-200"
+            >
+              <ArrowLeft className="w-6 h-6" />
+            </button>
+            <div className="flex items-center space-x-3">
+              <ShoppingBag className="w-8 h-8 text-black" />
+              <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {cartItems.length === 0 ? (
+          // Empty Cart State
+          <div className="text-center py-16">
+            <ShoppingBag className="w-24 h-24 text-gray-300 mx-auto mb-6" />
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Your cart is empty</h2>
+            <p className="text-gray-600 mb-8">Looks like you haven't added any items to your cart yet.</p>
+            <button
+              onClick={handleContinueShopping}
+              className="px-8 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors duration-200"
+            >
+              Continue Shopping
+            </button>
+          </div>
+        ) : (
+          // Cart with Items
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Cart Items */}
+            <div className="lg:col-span-2 space-y-4">
+              {cartItems.map((item) => (
+                <CartItem
+                  key={item.productId}
+                  item={item}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onRemoveItem={handleRemoveItem}
+                />
+              ))}
+            </div>
+
+            {/* Order Summary */}
+            <div className="lg:col-span-1">
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-8">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Order Summary</h2>
+                
+                {/* Summary Details */}
+                <div className="space-y-4 mb-6">
+                  <div className="flex justify-between text-gray-600">
+                    <span>Subtotal ({cartItems.reduce((total, item) => total + item.quantity, 0)} items)</span>
+                    <span>Rs. {calculateSubtotal().toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>Shipping</span>
+                    <span>{calculateShipping() === 0 ? 'Free' : `Rs. ${calculateShipping().toLocaleString()}`}</span>
+                  </div>
+                  <div className="border-t pt-4">
+                    <div className="flex justify-between text-lg font-semibold text-gray-900">
+                      <span>Total</span>
+                      <span>Rs. {calculateTotal().toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Checkout Button */}
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-black text-white py-3 px-6 rounded-md font-semibold text-lg hover:bg-gray-800 transition-colors duration-200 mb-4"
+                >
+                  Proceed to Checkout
+                </button>
+
+                {/* Continue Shopping */}
+                <button
+                  onClick={handleContinueShopping}
+                  className="w-full border border-gray-300 text-gray-700 py-3 px-6 rounded-md font-medium hover:bg-gray-50 transition-colors duration-200"
+                >
+                  Continue Shopping
+                </button>
+
+                {/* Shipping Info */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="flex items-center space-x-3 text-sm text-gray-600 mb-2">
+                    <Truck className="w-4 h-4" />
+                    <span>Free shipping on orders over Rs. 5,000</span>
+                  </div>
+                  <div className="flex items-center space-x-3 text-sm text-gray-600">
+                    <CreditCard className="w-4 h-4" />
+                    <span>Secure checkout with multiple payment options</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Cart;
