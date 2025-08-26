@@ -3,10 +3,16 @@ import { Search, Heart, Handbag, User, AlignJustify } from "lucide-react";
 // or wherever your icons come from
 import Card from "../components/Card";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 function Navbar() {
     const [showDiv, setShowDiv] = useState(true);
+    const navigate = useNavigate();
+
+    const cartClick = ()=>{
+      navigate('/cart');
+    }
 
     
     useEffect(() => {

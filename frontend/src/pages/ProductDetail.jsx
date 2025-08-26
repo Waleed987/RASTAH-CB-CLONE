@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useAsyncValue } from "react-router-dom";
 import { Search, Heart, Handbag, User, AlignJustify, ArrowLeft, Star } from "lucide-react";
 import axios from "axios";
 
+
 function Navbar() {
     const [showDiv, setShowDiv] = useState(true);
-
+    const navigate = useNavigate();
     useEffect(() => {
       const handleResize = () => {
         if (window.innerWidth < 1200) {
@@ -20,6 +21,10 @@ function Navbar() {
       return () => window.removeEventListener("resize", handleResize);
     }, []);
   
+    const cartClick = ()=>{
+      navigate('/cart');
+    }
+
     return (
       <>
       {showDiv &&
@@ -67,7 +72,7 @@ function Navbar() {
   
           <div className='ml-40 flex flex-row pt-2 space-x-4'>
             <Heart className='text-black h-6 w-6 '/>
-            <Handbag className='text-black  h-6 w-6'/>
+            <Handbag onClick={cartClick} className='text-black  h-6 w-6 cursor-pointer'/>
             <User className='text-black  h-6 w-6'/>
           </div>
         </div>
@@ -83,7 +88,7 @@ function Navbar() {
           </div>
           <div className='flex flex-row pt-2 space-x-4 pb-6 '>
             <Heart className='group-hover:text-black h-6 w-6 '/>
-            <Handbag className='group-hover:text-black  h-6 w-6'/>
+            <Handbag onClick={cartClick} className='group-hover:text-black  h-6 w-6'/>
             <User className='group-hover:text-black  h-6 w-6'/>
           </div>
       </nav>

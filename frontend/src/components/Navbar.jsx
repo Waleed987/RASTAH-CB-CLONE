@@ -1,12 +1,12 @@
 import { useState,useEffect } from 'react';
 import TextType from './TextType';
 import { Heart, Search, Handbag ,User,AlignJustify} from "lucide-react";
-
+import { useNavigate } from 'react-router-dom';
 
 
 function Navbar() {
   const [showDiv, setShowDiv] = useState(true);
-
+  const navigate = useNavigate();
   
 
   useEffect(() => {
@@ -22,6 +22,10 @@ function Navbar() {
     handleResize(); // check on first render
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const cartClick = ()=>{
+    navigate('/cart');
+  }
 
   return (
     <>
@@ -85,7 +89,7 @@ function Navbar() {
         <div className='ml-40 flex flex-row pt-2 space-x-4'>
           <Heart className='group-hover:text-black h-6 w-6 text-white'/>
 
-          <Handbag className='group-hover:text-black text-white h-6 w-6'/>
+          <Handbag onClick={cartClick} className='group-hover:text-black text-white h-6 w-6'/>
 
           <User className='group-hover:text-black text-white h-6 w-6'/>
         </div>

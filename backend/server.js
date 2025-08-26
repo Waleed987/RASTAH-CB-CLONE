@@ -17,6 +17,7 @@ app.use(cors({
 app.use('/api/inventory',inventoryRoute);
 app.use('/api/user',userRoute);
 
+
 connectDB().then(()=>{
     const PORT = 5000;
     app.listen(PORT,()=>{
