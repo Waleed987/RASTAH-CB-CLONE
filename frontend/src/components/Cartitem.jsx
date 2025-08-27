@@ -7,12 +7,12 @@ function CartItem({ item, onUpdateQuantity, onRemoveItem }) {
   const handleQuantityChange = (newQuantity) => {
     if (newQuantity >= 1) {
       setQuantity(newQuantity);
-      onUpdateQuantity(item.productId, newQuantity);
+      onUpdateQuantity(item.productId, item.size, newQuantity);
     }
   };
 
   const handleRemove = () => {
-    onRemoveItem(item.productId);
+    onRemoveItem(item.productId, item.size);
   };
 
   return (

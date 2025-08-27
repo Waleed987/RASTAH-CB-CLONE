@@ -4,6 +4,7 @@ function Card({item}){
     const navigate = useNavigate();
 
     const handleCardClick = () => {
+        console.log("this is item id" + item._id);
         navigate(`/product/${item._id}`);
     };
 

@@ -78,7 +78,7 @@ function Login() {
           navigate('/admin');
         } else {
           console.log(userDecoded);
-          navigate('/Home');
+          navigate('/');
         }
       }
     } catch (error) {

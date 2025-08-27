@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useAsyncValue } from "react-router-dom";
 import { Search, Heart, Handbag, User, AlignJustify, ArrowLeft, Star } from "lucide-react";
 import axios from "axios";
+import { useCart } from "../context/CartContext";
 
 
 function Navbar() {
     const [showDiv, setShowDiv] = useState(true);
     const navigate = useNavigate();
+    const { getCartItemCount } = useCart();
     useEffect(() => {
       const handleResize = () => {
         if (window.innerWidth < 1200) {
@@ -72,7 +74,14 @@ function Navbar() {
   
           <div className='ml-40 flex flex-row pt-2 space-x-4'>
             <Heart className='text-black h-6 w-6 '/>
-            <Handbag onClick={cartClick} className='text-black  h-6 w-6 cursor-pointer'/>
+            <div className="relative">
+              <Handbag onClick={cartClick} className='text-black  h-6 w-6 cursor-pointer'/>
+              {getCartItemCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {getCartItemCount()}
+                </span>
+              )}
+            </div>
             <User className='text-black  h-6 w-6'/>
           </div>
         </div>
@@ -88,7 +97,14 @@ function Navbar() {
           </div>
           <div className='flex flex-row pt-2 space-x-4 pb-6 '>
             <Heart className='group-hover:text-black h-6 w-6 '/>
-            <Handbag onClick={cartClick} className='group-hover:text-black  h-6 w-6'/>
+            <div className="relative">
+              <Handbag onClick={cartClick} className='group-hover:text-black  h-6 w-6 cursor-pointer'/>
+              {getCartItemCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {getCartItemCount()}
+                </span>
+              )}
+            </div>
             <User className='group-hover:text-black  h-6 w-6'/>
           </div>
       </nav>
@@ -100,6 +116,7 @@ function Navbar() {
 function ProductDetail() {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState('');
@@ -134,8 +151,16 @@ function ProductDetail() {
       alert('Please select a size');
       return;
     }
-    // Add to cart logic here
+    
+    // Add item to cart using context
+    addToCart(product, selectedSize, quantity);
+    
+    // Show success message
     alert(`Added ${quantity} ${product.productName} (${selectedSize}) to cart`);
+    
+    // Reset form
+    setSelectedSize('');
+    setQuantity(1);
   };
 
   const handleBackToCollection = () => {
@@ -284,6 +309,7 @@ function ProductDetail() {
                     {product.availability && product.availability.toLowerCase() === 'in-stock' ? 'Add to Cart' : 'Out of Stock'}
                   </button>
                 </div>
+
 
                 {/* Additional Info */}
                 <div className="border-t pt-6 space-y-4">

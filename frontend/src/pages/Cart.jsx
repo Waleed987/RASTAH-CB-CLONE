@@ -3,59 +3,24 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CartItem from "../components/Cartitem";
 import { ArrowLeft, ShoppingBag, CreditCard, Truck } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 function Cart() {
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { items: cartItems, updateQuantity, removeFromCart, getCartTotal, getCartItemCount } = useCart();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Mock cart data for demonstration (replace with actual API call)
-  useEffect(() => {
-    // Simulate loading cart data
-    setTimeout(() => {
-      setCartItems([
-        {
-          productId: "1",
-          productName: "BAZM-E-BAHAR JACKET",
-          price: 134600,
-          quantity: 2,
-          imageUrl: "/hero.webp",
-          gender: "men",
-          subcategory: "jacket",
-          size: "M"
-        },
-        {
-          productId: "2", 
-          productName: "PATANG-E-KHAYAAL JACKET",
-          price: 134600,
-          quantity: 1,
-          imageUrl: "/hero.webp",
-          gender: "men",
-          subcategory: "jacket",
-          size: "L"
-        }
-      ]);
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  const handleUpdateQuantity = (productId, newQuantity) => {
-    setCartItems(prev => 
-      prev.map(item => 
-        item.productId === productId 
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    );
+  const handleUpdateQuantity = (productId, size, newQuantity) => {
+    updateQuantity(productId, size, newQuantity);
   };
 
-  const handleRemoveItem = (productId) => {
-    setCartItems(prev => prev.filter(item => item.productId !== productId));
+  const handleRemoveItem = (productId, size) => {
+    removeFromCart(productId, size);
   };
 
   const calculateSubtotal = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return getCartTotal();
   };
 
   const calculateShipping = () => {
@@ -117,6 +82,11 @@ function Cart() {
             <div className="flex items-center space-x-3">
               <ShoppingBag className="w-8 h-8 text-black" />
               <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
+              {getCartItemCount() > 0 && (
+                <span className="bg-black text-white text-sm px-3 py-1 rounded-full">
+                  {getCartItemCount()} {getCartItemCount() === 1 ? 'item' : 'items'}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -143,7 +113,7 @@ function Cart() {
             <div className="lg:col-span-2 space-y-4">
               {cartItems.map((item) => (
                 <CartItem
-                  key={item.productId}
+                  key={`${item.productId}-${item.size}`}
                   item={item}
                   onUpdateQuantity={handleUpdateQuantity}
                   onRemoveItem={handleRemoveItem}
