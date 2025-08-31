@@ -29,7 +29,11 @@ function Login() {
          
           if(res.data.token){
             const decoded = jwtDecode(res.data.token);
-            localStorage.setItem('token',res.data);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('userData', JSON.stringify({
+              userId: decoded.userId || decoded._id,
+              isAdmin: decoded.isAdmin
+            }));
           
             if(decoded.isAdmin === true){
              
@@ -73,6 +77,10 @@ function Login() {
       if(res.data.token){
         const userDecoded = jwtDecode(res.data.token);
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userData', JSON.stringify({
+          userId: userDecoded.userId || userDecoded._id,
+          isAdmin: userDecoded.isAdmin
+        }));
         
         if(userDecoded.isAdmin === true){
           navigate('/admin');

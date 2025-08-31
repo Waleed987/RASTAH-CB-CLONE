@@ -32,8 +32,16 @@ function Cart() {
   };
 
   const handleCheckout = () => {
-    // Implement checkout logic here
-    alert("Proceeding to checkout...");
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert("Please login to proceed to checkout");
+      navigate('/login');
+      return;
+    }
+    
+    // Navigate to checkout page
+    navigate('/checkout');
   };
 
   const handleContinueShopping = () => {

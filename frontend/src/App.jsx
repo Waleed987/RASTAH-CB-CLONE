@@ -11,6 +11,8 @@ import Mens from './pages/Mens'
 import Women from './pages/Women'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
+import OrderDetail from './pages/OrderDetail'
 import { CartProvider } from './context/CartContext'
 
 function App() { 
@@ -30,6 +32,8 @@ function App() {
               <Route path='/all' element={<Allcollection/>} />
               <Route path='/product/:productId' element={<ProductDetail/>} />
               <Route path='/cart' element={<Cart/>} />
+              <Route path='/checkout' element={<Checkout/>} />
+              <Route path='/order/:orderId' element={<OrderDetail/>} />
             </Routes>
           </BrowserRouter>
         </CartProvider>
