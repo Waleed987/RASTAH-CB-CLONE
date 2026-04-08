@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Card from './Card';
-import axios from 'axios';
+import api from '../api';
 
 function SoftboySeasonSection() {
   const [activeTab, setActiveTab] = useState('men');
@@ -14,7 +14,7 @@ function SoftboySeasonSection() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/inventory/collection");
+        const res = await api.get("/api/inventory/collection");
         setproducts(res.data.inventoryItems);
         console.log("Inventory items:", res.data.inventoryItems);
       } catch (error) {

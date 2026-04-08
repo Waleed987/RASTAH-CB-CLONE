@@ -19,7 +19,7 @@ function App() {
   
   return (
     <>
-      <GoogleOAuthProvider clientId="659328278975-tvtk5plab7t388ma3gqetd2q0te5lchb.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <CartProvider>
           <BrowserRouter>
             <Routes>

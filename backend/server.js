@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -10,23 +11,27 @@ const orderRoute = require('./Routes/order-route');
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Vite's default port
+    origin: process.env.FRONTEND_URL || '*',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-app.use('/api/inventory',inventoryRoute);
-app.use('/api/user',userRoute);
-app.use('/api/cart',cartRoute);
-app.use('/api/order',orderRoute);
+app.use('/api/inventory', inventoryRoute);
+app.use('/api/user', userRoute);
+app.use('/api/cart', cartRoute);
+app.use('/api/order', orderRoute);
 
+// Connect to DB (cached — skips reconnect on serverless warm invocations)
+connectDB();
 
-connectDB().then(()=>{
-    const PORT = 5000;
-    app.listen(PORT,()=>{
+// For local development: start the server normally
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
         console.log(`listening on PORT NUMBER : ${PORT}`);
-    })
-})
+    });
+}
 
-
+// Export app for Vercel serverless
+module.exports = app;

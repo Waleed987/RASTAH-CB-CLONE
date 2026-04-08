@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 
 function Signup(){
@@ -22,7 +22,7 @@ function Signup(){
     const handleSignUpSubmit = async(e)=>{
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:5000/api/user/signup",user);
+            const res = await api.post("/api/user/signup",user);
             console.log(res.data.message);
             alert("User added Successfully");
 

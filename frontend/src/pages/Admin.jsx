@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function Admin() {
   const [item, setItem] = useState({
@@ -39,7 +39,7 @@ function Admin() {
         return;
       }
       
-      await axios.post("http://localhost:5000/api/inventory/collection", itemData);
+      await api.post("/api/inventory/collection", itemData);
       alert("Item added successfully!");
       setItem({ 
         productName: "", 
@@ -64,7 +64,7 @@ function Admin() {
         return;
       }
       
-      await axios.delete(`http://localhost:5000/api/inventory/collection/${deleteItem}`);
+      await api.delete(`/api/inventory/collection/${deleteItem}`);
       alert("Item deleted successfully");
       setDeleteItem(""); // reset form
     } catch (error) {

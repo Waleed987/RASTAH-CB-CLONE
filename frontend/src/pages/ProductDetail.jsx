@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useAsyncValue } from "react-router-dom";
 import { Search, Heart, Handbag, User, AlignJustify, ArrowLeft, Star } from "lucide-react";
-import axios from "axios";
+import api from "../api";
 import { useCart } from "../context/CartContext";
 
 
@@ -125,7 +125,7 @@ function ProductDetail() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/inventory/collection`);
+        const res = await api.get(`/api/inventory/collection`);
         const foundProduct = res.data.inventoryItems.find(item => item._id === productId);
         if (foundProduct) {
           setProduct(foundProduct);

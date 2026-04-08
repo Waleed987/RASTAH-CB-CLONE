@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import { ArrowLeft, Package, Truck, CheckCircle, Clock } from "lucide-react";
 
 function OrderDetail() {
@@ -22,8 +22,8 @@ function OrderDetail() {
           return;
         }
 
-        const response = await axios.get(
-          `http://localhost:5000/api/order/${orderId}`,
+        const response = await api.get(
+          `/api/order/${orderId}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,

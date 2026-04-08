@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios';
+import api from '../api';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
-
-const clientId = "659328278975-tvtk5plab7t388ma3gqetd2q0te5lchb.apps.googleusercontent.com"
 
 function Login() {
   const navigate = useNavigate();
@@ -24,7 +22,7 @@ function Login() {
   const handleUserLoginSubmit = async (e) => {
     e.preventDefault()
     try {
-          const res = await axios.post("http://localhost:5000/api/user/login",user);
+          const res = await api.post("/api/user/login",user);
           console.log(res.data);
          
           if(res.data.token){
@@ -72,7 +70,7 @@ function Login() {
       };
       
       // Send Google user data to your backend for authentication
-      const res = await axios.post("http://localhost:5000/api/user/google-login", googleUser);
+      const res = await api.post("/api/user/google-login", googleUser);
       
       if(res.data.token){
         const userDecoded = jwtDecode(res.data.token);

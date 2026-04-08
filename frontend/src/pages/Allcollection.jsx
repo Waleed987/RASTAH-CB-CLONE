@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Search, Heart, Handbag, User, AlignJustify } from "lucide-react"; 
 // or wherever your icons come from
 import Card from "../components/Card";
-import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 
@@ -133,7 +133,7 @@ function Allcollection() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/inventory/collection");
+        const res = await api.get("/api/inventory/collection");
         setInventoryItems(res.data.inventoryItems);
         console.log("Inventory items:", res.data.inventoryItems);
       } catch (error) {

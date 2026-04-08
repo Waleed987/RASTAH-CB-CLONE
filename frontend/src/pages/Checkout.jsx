@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import { ArrowLeft, CreditCard, Truck, CheckCircle } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { jwtDecode } from "jwt-decode";
@@ -86,8 +86,8 @@ function Checkout() {
       };
 
       // Create order
-      const response = await axios.post(
-        "http://localhost:5000/api/order/checkout",
+      const response = await api.post(
+        "/api/order/checkout",
         orderData,
         {
           headers: {
