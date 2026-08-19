@@ -22,7 +22,6 @@ app.use('/api/user', userRoute);
 app.use('/api/cart', cartRoute);
 app.use('/api/order', orderRoute);
 
-// Connect to DB (cached — skips reconnect on serverless warm invocations)
 connectDB();
 
 // For local development: start the server normally
